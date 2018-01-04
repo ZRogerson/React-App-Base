@@ -1,10 +1,15 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = [
     {
         name: 'client',
         target: 'web',
-        entry: './src/client.jsx',
+        entry: [
+            'webpack-hot-middleware/client',
+            'react-hot-loader/patch',
+            './src/client.jsx'
+        ],
         output: {
             path: path.join(__dirname, 'static'),
             filename: 'client.js',
@@ -13,7 +18,7 @@ module.exports = [
         resolve: {
             extensions: ['.js', '.jsx']
         },
-        devtool: 'source-map',
+        devtool: 'cheap-module-eval-source-map',
         module: {
             rules: [
                 {
@@ -40,7 +45,12 @@ module.exports = [
                     ]
                 }
             ]
-        }
+        },
+        plugins: [
+            new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': '"development"' } }),
+            new webpack.NamedModulesPlugin(),
+            new webpack.HotModuleReplacementPlugin()
+        ]
     },
     {
         name: 'server',
@@ -82,6 +92,11 @@ module.exports = [
                     ]
                 }
             ]
-        }
+        },
+        plugins: [
+            new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': '"development"' } }),
+            new webpack.NamedModulesPlugin(),
+            new webpack.HotModuleReplacementPlugin()
+        ]
     }
 ]

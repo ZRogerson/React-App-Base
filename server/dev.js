@@ -11,6 +11,7 @@ const app = express();
 const compiler = webpack(config);
 
 app.use(webpackDevMiddleware(compiler, {
+    hot: true,
     publicPath: '/static/'
 }));
 

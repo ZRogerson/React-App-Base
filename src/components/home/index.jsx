@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Helmet from "react-helmet";
-
 import styles from './styles.scss';
 
 export class Home extends Component {
